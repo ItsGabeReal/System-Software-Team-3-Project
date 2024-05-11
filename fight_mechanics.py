@@ -1,6 +1,7 @@
 import pygame
 import random
 from classes.stats import player_stats, enemy_stats
+from settings import MAP_SCREEN_RESOLUTION
 
 # Constants
 FONT_SIZE_HEALTH = 12
@@ -166,3 +167,6 @@ def fight_encounter():
 
 
         pygame.display.flip()
+
+    # Reset resolution before returning to map screen
+    pygame.display.set_mode(MAP_SCREEN_RESOLUTION)

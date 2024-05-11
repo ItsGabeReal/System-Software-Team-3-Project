@@ -1,13 +1,14 @@
 import pygame
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
+import settings
 
 # Constants
 MOVE_DELAY = 200 # Delay between player movements when holding down an arrow key (in milliseconds)
 
 # Pygame setup
 pygame.init() # setup pygame
-screen = pygame.display.set_mode((960, 680)) # create a window
+screen = pygame.display.set_mode(settings.MAP_SCREEN_RESOLUTION) # create a window
 pygame.display.set_caption("Waterlogged") # set window name
 map_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 24) # create a font that we can use to draw text
 text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
@@ -20,7 +21,7 @@ map = world_map()
 def loop():
     screen.fill((0, 0, 0)) # background
 
-    map.render(screen, map_font, render_regeion=(61, 21)) # draw map on screen
+    map.render(screen, map_font, render_regeion=(65, 25)) # draw map on screen
 
     draw_game_info()
 
