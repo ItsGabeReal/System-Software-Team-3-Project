@@ -9,7 +9,8 @@ MOVE_DELAY = 200 # Delay between player movements when holding down an arrow key
 pygame.init() # setup pygame
 screen = pygame.display.set_mode((960, 680)) # create a window
 pygame.display.set_caption("Waterlogged") # set window name
-font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 24) # create a font that we can use to draw text
+map_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 24) # create a font that we can use to draw text
+text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
 pygame.key.set_repeat(MOVE_DELAY, MOVE_DELAY) # set repeat rate for keys. that way players can move by holding down the arrow keys
 
 # Game setup
@@ -19,9 +20,30 @@ map = world_map()
 def loop():
     screen.fill((0, 0, 0)) # background
 
-    map.render(screen, font, render_regeion=(61, 21)) # draw map on screen
+    map.render(screen, map_font, render_regeion=(61, 21)) # draw map on screen
+
+    draw_game_info()
 
     pygame.display.flip() # render everything we've done
+
+def draw_game_info():
+    # Print gameplay information
+    STAT_SPACING = 16
+    
+    # draw rect background
+    pygame.draw.rect(screen, (0, 0, 0), (0, 0, 100, STAT_SPACING*7))
+
+    # player stats
+    draw_text(text_font, 'Health: '+str(player_stats.player_health), (0, 0))
+    draw_text(text_font, 'Hunger: '+str(player_stats.player_hunger), (0, STAT_SPACING))
+    draw_text(text_font, 'Gold: '+str(player_inventory.gold), (0, STAT_SPACING*3))
+    draw_text(text_font, 'Wood: '+str(player_inventory.wood), (0, STAT_SPACING*4))
+    draw_text(text_font, 'Copper: '+str(player_inventory.copper), (0, STAT_SPACING*5))
+    draw_text(text_font, 'Iron: '+str(player_inventory.iron), (0, STAT_SPACING*6))
+    
+    # resources
+    
+    # tool levels
 
 
 def on_key_pressed(event: pygame.event.Event):
@@ -78,6 +100,9 @@ def on_mouse_pressed(event: pygame.event.Event):
     if event.button == 1: # Left mouse button
         print("left mouse button pressed")
 
+def draw_text(font: pygame.font.Font, message, position: tuple[int, int], color = (255, 255, 255)):
+    img = font.render(message, True, color)
+    screen.blit(img, position)
 
 if __name__ == '__main__':
     # Run gameplay loop until the game window is closed
