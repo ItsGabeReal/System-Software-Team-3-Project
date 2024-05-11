@@ -11,3 +11,9 @@ class player_stats:
 # Enemy statistics for fighting
 class enemy_stats:
     enemy_health = 100
+
+class player_inventory:
+    gold = 0
+    wood = 0
+    copper = 0
+    iron = 0

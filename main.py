@@ -1,5 +1,6 @@
 import pygame
 from classes.world_map import world_map
+from classes.stats import player_stats, player_inventory
 
 # Constants
 MOVE_DELAY = 200 # Delay between player movements when holding down an arrow key (in milliseconds)
@@ -56,10 +57,17 @@ def on_key_pressed(event: pygame.event.Event):
         elif letter == 'O' or letter == 'T': # resource
             resource = map.get_nearby_resource() # get resource attributes (health and type)
             
-            resource.mine(0.1) # partially mine the resource
+            # TODO: Alter mining rate acording to tool level
+            resource.mine(20) # partially mine the resource
 
             if resource.is_mined():
-                print('Resource collected')
+                if resource.type == 'wood':
+                    player_inventory.wood += 1
+                elif resource.type == 'copper':
+                    player_inventory.copper += 1
+                else:
+                    player_inventory.iron += 1
+                
                 map.remove_resource(resource.location)
             else:
                 print('Mined resource.', resource.health, 'health remaining')
