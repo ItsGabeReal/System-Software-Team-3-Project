@@ -1,6 +1,6 @@
 import pygame
 import random
-from classes.stats import player_stats, enemy_stats
+from classes.stats import player_stats, enemy_stats, player_inventory
 from settings import MAP_SCREEN_RESOLUTION
 
 # Constants
@@ -131,10 +131,14 @@ def fight_encounter():
                     if enemy_stats.enemy_health <= 0:
                         running_fight = False
                         enemy_stats.enemy_health = 100
+                        player_inventory.copper += 4
                     elif player_stats.player_health <= 0:
                         running_fight = False
                         player_stats.player_health = 100
                         enemy_stats.enemy_health = 100
+                        player_inventory.copper -= 10
+                        if player_inventory.copper < 0:
+                            player_inventory.copper = 0
 
                     # Update player and enemy health display
                     player_health_bar = font_health.render(f"Health: {player_stats.player_health}", True, (255, 0, 0))
