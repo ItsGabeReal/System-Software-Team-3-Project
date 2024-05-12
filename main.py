@@ -2,6 +2,7 @@ import pygame
 from boat import open_boat_screen
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
+from mining import get_mining_yield
 import settings
 
 # Constants
@@ -82,16 +83,18 @@ def on_key_pressed(event: pygame.event.Event):
         elif letter == 'O' or letter == 'T': # resource
             resource = map.get_nearby_resource() # get resource attributes (health and type)
             
-            # TODO: Alter mining rate acording to tool level
-            resource.mine(20) # partially mine the resource
+            if letter == 'O':
+                resource.mine(10 * player_stats.tool_pickaxe)
+            else:
+                resource.mine(10 * player_stats.tool_axe)
 
             if resource.is_mined():
                 if resource.type == 'wood':
-                    player_inventory.wood += 1
+                    player_inventory.wood += get_mining_yield(player_stats.tool_axe)
                 elif resource.type == 'copper':
-                    player_inventory.copper += 1
+                    player_inventory.copper += get_mining_yield(player_stats.tool_pickaxe)
                 else:
-                    player_inventory.iron += 1
+                    player_inventory.iron += get_mining_yield(player_stats.tool_pickaxe)
                 
                 map.remove_resource(resource.location)
             else:

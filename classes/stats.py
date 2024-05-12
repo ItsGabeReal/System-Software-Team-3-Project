@@ -7,6 +7,8 @@ class player_stats:
     player_health = 100
     player_hunger = 100
     tool_sword = 1
+    tool_axe = 3
+    tool_pickaxe = 1
 
 # Enemy statistics for fighting
 class enemy_stats:
