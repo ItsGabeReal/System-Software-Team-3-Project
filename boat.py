@@ -70,10 +70,13 @@ def can_build_boat():
 
 def open_victory_screen():
     pygame.display.set_caption("You Win!")
-    screen = pygame.display.set_mode((500, 500))
+    screen = pygame.display.set_mode((600, 600))
 
-    # Create fonts
-    text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 18)
+    # Create font
+    text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 34)
+
+    # Load image
+    thumbs_up = pygame.image.load('assets/thumbs-up.png')
 
     # Main loop
     looping = True
@@ -82,7 +85,10 @@ def open_victory_screen():
         screen.fill((0, 0, 0))
 
         # Print victory message
-        screen.blit(text_font.render('You Win!', True, (255, 255, 255)), (250, 250))
+        screen.blit(text_font.render('You Win!', True, (255, 255, 255)), (250, 50))
+
+        # Show victory image
+        screen.blit(thumbs_up, (60, 150))
 
         # TODO: Add image
 

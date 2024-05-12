@@ -28,7 +28,7 @@ class world_map:
         # Initialize variables
         self.__data: list[list[str]] = None # Stores the map data in a 2D array of strings
         self.__map_size: tuple[int, int] = None # Width and height of map
-        self.__player_position: tuple[int, int] = (33, 15) # Location of player
+        self.__player_position: tuple[int, int] = (50, 30) # Location of player
         self.__resources: list[Resource] = [] # Properties for all resources that have been spawned
 
         self.initialize()
