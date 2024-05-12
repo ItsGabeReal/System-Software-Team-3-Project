@@ -1,12 +1,13 @@
 import pygame
 from boat import open_boat_screen
+from mining import get_mining_yield
+from shop import open_shop_screen
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
-from mining import get_mining_yield
 import settings
 
 # Constants
-MOVE_DELAY = 200 # Delay between player movements when holding down an arrow key (in milliseconds)
+MOVE_DELAY = 100 # Delay between player movements when holding down an arrow key (in milliseconds)
 
 # Pygame setup
 pygame.init() # setup pygame
@@ -75,7 +76,7 @@ def on_key_pressed(event: pygame.event.Event):
             print('interacted with Inn')
         
         elif letter == 'S': # shop
-            print('interacted with Shop')
+            open_shop_screen()
         
         elif letter == 'U': # boat
             open_boat_screen()
