@@ -10,14 +10,14 @@ from settings import MAP_SCREEN_RESOLUTION, BOAT_REQUIREMENTS
 
 def open_boat_screen():
     pygame.display.set_caption("Broken Boat")
-    screen = pygame.display.set_mode((500, 500))
+    screen = pygame.display.set_mode((500, 400))
 
     # Create fonts
     text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 18)
     button_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
 
     # Create buttons
-    purchase_btn = Button('Purchase', (200, 400, 100, 40), not can_build_boat())
+    purchase_btn = Button('Repair', (200, 325, 100, 40), not can_build_boat())
     return_btn = Button('Return', (20, 20, 70, 30))
 
     # Main loop
@@ -27,12 +27,12 @@ def open_boat_screen():
         screen.fill((0, 0, 0))
 
         # Print requirements
-        WHITE = (255, 255, 255)        
-        screen.blit(text_font.render('Escape the island by building the boat.', True, WHITE), (100, 100))
-        screen.blit(text_font.render('Resources required:', True, WHITE), (100, 120))
-        screen.blit(text_font.render('Wood: '+str(player_inventory.wood)+'/'+str(BOAT_REQUIREMENTS['wood']), True, WHITE), (100, 140))
-        screen.blit(text_font.render('Copper: '+str(player_inventory.copper)+'/'+str(BOAT_REQUIREMENTS['copper']), True, WHITE), (100, 160))
-        screen.blit(text_font.render('Iron: '+str(player_inventory.iron)+'/'+str(BOAT_REQUIREMENTS['iron']), True, WHITE), (100, 180))
+        WHITE = (255, 255, 255)
+        screen.blit(text_font.render('Escape the island by repairing the boat.', True, WHITE), (30, 80))
+        screen.blit(text_font.render('Resources required:', True, WHITE), (150, 140))
+        screen.blit(button_font.render(f'{BOAT_REQUIREMENTS['wood']} Wood (you have {player_inventory.wood})', True, WHITE), (160, 170))
+        screen.blit(button_font.render(f'{BOAT_REQUIREMENTS['copper']} Copper (you have {player_inventory.copper})', True, WHITE), (160, 190))
+        screen.blit(button_font.render(f'{BOAT_REQUIREMENTS['iron']} Iron (you have {player_inventory.iron})', True, WHITE), (160, 210))
 
         # Draw buttons
         return_btn.render(screen, button_font)

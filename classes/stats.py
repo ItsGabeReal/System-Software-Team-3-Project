@@ -7,7 +7,7 @@ class player_stats:
     player_health = 100
     player_hunger = 100
     tool_sword = 1
-    tool_axe = 3
+    tool_axe = 1
     tool_pickaxe = 1
     just_slept = False # Used to reset the map after the player sleeps
     won_game = False # Used in main.py to automatically exit the game if the boat gets rebuilt
