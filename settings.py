@@ -17,3 +17,5 @@ SHOP_INVENTORY = {
     'Copper': {'price': 6},
     'Wood': {'price': 4}
 }
+
+SLEEP_COST = 5

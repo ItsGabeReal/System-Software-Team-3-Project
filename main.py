@@ -2,6 +2,7 @@ import pygame
 from boat import open_boat_screen
 from mining import get_mining_yield
 from shop import open_shop_screen
+from inn import open_inn_screen
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
 import settings
@@ -73,8 +74,11 @@ def on_key_pressed(event: pygame.event.Event):
             print('interacted with Blacksmith')
         
         elif letter == 'H': # inn
-            print('interacted with Inn')
-        
+            open_inn_screen()
+            if player_stats.just_slept:
+                player_stats.just_slept = False
+                map.initialize() # Reset map resources
+
         elif letter == 'S': # shop
             open_shop_screen()
         

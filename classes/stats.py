@@ -9,6 +9,7 @@ class player_stats:
     tool_sword = 1
     tool_axe = 3
     tool_pickaxe = 1
+    just_slept = False # Used to reset the map after the player sleeps
 
 # Enemy statistics for fighting
 class enemy_stats:

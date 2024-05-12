@@ -16,7 +16,7 @@ ITEM_SPACING = 50
 
 def open_shop_screen():
     pygame.display.set_caption("Shop")
-    screen = pygame.display.set_mode((500, 500))
+    screen = pygame.display.set_mode((500, 530))
 
     # Create font
     text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
@@ -33,8 +33,8 @@ def open_shop_screen():
     copper_btn = Button('-'+str(SHOP_INVENTORY['Copper']['price'])+' Gold', (LIST_POSITION[0]+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING*6, BUTTON_SIZE[0], BUTTON_SIZE[1]))
     iron_btn = Button('-'+str(SHOP_INVENTORY['Iron']['price'])+' Gold', (LIST_POSITION[0]+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING*7, BUTTON_SIZE[0], BUTTON_SIZE[1]))
     sell_wood_btn = Button('+'+str(SHOP_INVENTORY['Wood']['price'])+' Gold', (SELL_LIST_X+BUTTON_X_OFFSET, LIST_POSITION[1], BUTTON_SIZE[0], BUTTON_SIZE[1]))
-    sell_copper_btn = Button('+'+str(SHOP_INVENTORY['Copper']['price'])+' Copper', (SELL_LIST_X+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING, BUTTON_SIZE[0], BUTTON_SIZE[1]))
-    sell_iron_btn = Button('+'+str(SHOP_INVENTORY['Iron']['price'])+' Iron', (SELL_LIST_X+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING*2, BUTTON_SIZE[0], BUTTON_SIZE[1]))
+    sell_copper_btn = Button('+'+str(SHOP_INVENTORY['Copper']['price'])+' Gold', (SELL_LIST_X+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING, BUTTON_SIZE[0], BUTTON_SIZE[1]))
+    sell_iron_btn = Button('+'+str(SHOP_INVENTORY['Iron']['price'])+' Gold', (SELL_LIST_X+BUTTON_X_OFFSET, LIST_POSITION[1]+ITEM_SPACING*2, BUTTON_SIZE[0], BUTTON_SIZE[1]))
 
     # Main loop
     looping = True
