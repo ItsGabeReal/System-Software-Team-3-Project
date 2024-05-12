@@ -2,6 +2,7 @@ import pygame
 import random
 from classes.stats import player_stats, enemy_stats, player_inventory
 from classes.button import Button
+from classes.message_board import show_message
 from settings import MAP_SCREEN_RESOLUTION
 
 # Constants
@@ -59,6 +60,7 @@ def fight_encounter():
     # Pygame font setup
     font_health = pygame.font.Font(None, FONT_SIZE_HEALTH)
     font_chars = pygame.font.Font(None, FONT_SIZE_CHARS)
+    font_tutorial = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 10)
 
     # Text surfaces
     player_text = font_chars.render("P", True, (255, 255, 255))
@@ -83,8 +85,8 @@ def fight_encounter():
     # Set up buttons
     button_width = FONT_SIZE_CHARS * 4  # Adjust button width as needed
     button_height = FONT_SIZE_CHARS + 10  # Adjust button height as needed
-    fight_button_location = ((250 - button_width) / 2, 400)
-    run_button_location = ((250 - button_width) / 2 + 250, 400)
+    fight_button_location = ((250 - button_width) / 2, 375)
+    run_button_location = ((250 - button_width) / 2 + 250, 375)
     fight_btn = Button('Fight', (fight_button_location[0], fight_button_location[1], button_width, button_height))
     run_btn = Button('Run', (run_button_location[0], run_button_location[1], button_width, button_height))
 
@@ -105,6 +107,10 @@ def fight_encounter():
         # Draw buttons
         fight_btn.render(screen, font_chars)
         run_btn.render(screen, font_chars)
+
+        # Draw tutorial text
+        screen.blit(font_tutorial.render('Winning gains you resources, and losing looses you resources.', True, (255, 255, 255)), (20, 460))
+        screen.blit(font_tutorial.render('Your attacks are less effective if you are hungry.', True, (255, 255, 255)), (20, 480))
         
         # Event handling
         for event in pygame.event.get():
@@ -113,6 +119,7 @@ def fight_encounter():
                 if flee_attempt == True:
                     running_fight = False
                     enemy_stats.enemy_health = 100
+                    show_message('You fled the fight')
                 else:
                     damage_recieved = enemy_attack()
                     player_stats.player_health -= damage_recieved
@@ -120,7 +127,9 @@ def fight_encounter():
                         running_fight = False
                         player_stats.player_health = 100
                         enemy_stats.enemy_health = 100
-
+                        current_copper = player_inventory.copper
+                        player_inventory.copper = max(player_inventory.copper-10, 0)
+                        show_message(f'Fight lost. Enemy took {current_copper-player_inventory.copper} copper')
                 # Update player and enemy health display
                 player_health_bar = font_health.render(f"Health: {player_stats.player_health}", True, HEALTH_BAR_COLOR)
                 enemy_health_bar = font_health.render(f"Health: {enemy_stats.enemy_health}", True, HEALTH_BAR_COLOR)
@@ -130,24 +139,21 @@ def fight_encounter():
                     damage_dealt = fighting_action()
                     enemy_stats.enemy_health -= damage_dealt
                     damage_recieved = enemy_attack()
-                    player_stats.player_health -= damage_recieved
-                    if player_stats.player_hunger > 0:
-                        player_stats.player_hunger -= 3
-                        if player_stats.player_hunger < 0:
-                            player_stats.player_hunger = 0
+                    player_stats.player_hunger = max(player_stats.player_hunger-3, 0)
                     #Ends fight event if player health or enemy health is fully depleted
                     fight_over = False
                     if enemy_stats.enemy_health <= 0:
                         running_fight = False
                         enemy_stats.enemy_health = 100
                         player_inventory.copper += 4
+                        show_message(f'Fight won. You gained 4 copper')
                     elif player_stats.player_health <= 0:
                         running_fight = False
                         player_stats.player_health = 100
                         enemy_stats.enemy_health = 100
-                        player_inventory.copper -= 10
-                        if player_inventory.copper < 0:
-                            player_inventory.copper = 0
+                        current_copper = player_inventory.copper
+                        player_inventory.copper = max(player_inventory.copper-10, 0)
+                        show_message(f'Fight lost. Enemy took {current_copper-player_inventory.copper} copper')
 
                     # Update player and enemy health display
                     player_health_bar = font_health.render(f"Health: {player_stats.player_health}", True, HEALTH_BAR_COLOR)
@@ -159,6 +165,7 @@ def fight_encounter():
                     if flee_attempt == True:
                         running_fight = False
                         enemy_stats.enemy_health = 100
+                        show_message('You fled the fight')
                     else:
                         damage_recieved = enemy_attack()
                         player_stats.player_health -= damage_recieved

@@ -1,6 +1,7 @@
 import pygame
 from classes.stats import player_inventory, player_stats
 from classes.button import Button
+from classes.message_board import show_message
 from settings import SHOP_INVENTORY, MAP_SCREEN_RESOLUTION, SLEEP_COST
 
 def open_inn_screen():
@@ -51,6 +52,7 @@ def open_inn_screen():
                         player_inventory.gold -= SLEEP_COST
                         player_stats.just_slept = True
                         player_stats.player_health = 100
+                        show_message('You slept. Resources have been reset.')
                         looping = False
                     else:
                         print('You cannot afford to sleep. Sorry.')

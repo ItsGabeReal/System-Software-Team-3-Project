@@ -10,6 +10,7 @@ class player_stats:
     tool_axe = 3
     tool_pickaxe = 1
     just_slept = False # Used to reset the map after the player sleeps
+    won_game = False # Used in main.py to automatically exit the game if the boat gets rebuilt
 
 # Enemy statistics for fighting
 class enemy_stats:

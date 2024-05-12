@@ -5,10 +5,11 @@ from shop import open_shop_screen
 from inn import open_inn_screen
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
+from classes.message_board import Message_Board, show_message
 import settings
 
 # Constants
-MOVE_DELAY = 100 # Delay between player movements when holding down an arrow key (in milliseconds)
+MOVE_DELAY = 150 # Delay between player movements when holding down an arrow key (in milliseconds)
 
 # Pygame setup
 pygame.init() # setup pygame
@@ -20,7 +21,8 @@ pygame.key.set_repeat(MOVE_DELAY, MOVE_DELAY) # set repeat rate for keys. that w
 
 # Game setup
 map = world_map()
-
+mb = Message_Board()
+show_message('Move with arrow keys. Interact with E.')
 
 def loop():
     screen.fill((0, 0, 0)) # background
@@ -28,6 +30,8 @@ def loop():
     map.render(screen, map_font, render_regeion=(65, 25)) # draw map on screen
 
     draw_game_info()
+
+    mb.render(screen)
 
     pygame.display.flip() # render everything we've done
 
@@ -79,6 +83,7 @@ def on_key_pressed(event: pygame.event.Event):
                 player_stats.just_slept = False
                 map.initialize() # Reset map resources
 
+
         elif letter == 'S': # shop
             open_shop_screen()
         
@@ -95,16 +100,21 @@ def on_key_pressed(event: pygame.event.Event):
 
             if resource.is_mined():
                 if resource.type == 'wood':
-                    player_inventory.wood += get_mining_yield(player_stats.tool_axe)
+                    amount = get_mining_yield(player_stats.tool_axe)
+                    player_inventory.wood += amount
+                    show_message(f'Harvested {amount} Wood')
                 elif resource.type == 'copper':
-                    player_inventory.copper += get_mining_yield(player_stats.tool_pickaxe)
+                    amount = get_mining_yield(player_stats.tool_pickaxe)
+                    player_inventory.copper += amount                    
+                    show_message(f'Mined {amount} Copper')
                 else:
-                    player_inventory.iron += get_mining_yield(player_stats.tool_pickaxe)
-                
+                    amount = get_mining_yield(player_stats.tool_pickaxe)
+                    player_inventory.iron += amount
+                    show_message(f'Mined {amount} Iron')
+
                 map.remove_resource(resource.location)
             else:
-                print('Mined resource.', resource.health, 'health remaining')
-            
+                show_message(f'Mining resource. {resource.health}% Remaining.')
 
 def on_mouse_pressed(event: pygame.event.Event):
     # example mouse interaction code
@@ -120,7 +130,7 @@ def draw_text(font: pygame.font.Font, message, position: tuple[int, int], color 
 if __name__ == '__main__':
     # Run gameplay loop until the game window is closed
     exit = False
-    while exit == False:
+    while exit == False and not player_stats.won_game:
         loop()
 
         # Handle input events (like key presses or mouse presses)

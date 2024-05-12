@@ -4,7 +4,7 @@ boat is rebuilt.
 '''
 
 import pygame
-from classes.stats import player_inventory
+from classes.stats import player_inventory, player_stats
 from classes.button import Button
 from settings import MAP_SCREEN_RESOLUTION, BOAT_REQUIREMENTS
 
@@ -36,7 +36,7 @@ def open_boat_screen():
 
         # Draw buttons
         return_btn.render(screen, button_font)
-        purchase_btn.render(screen, button_font)
+        purchase_btn.render(screen, button_font)        
 
         # Event handling
         for event in pygame.event.get():
@@ -49,6 +49,7 @@ def open_boat_screen():
                 if purchase_btn.is_pressed():
                     open_victory_screen()
                     looping = False
+                    player_stats.won_game = True # Set this to true so that the game map automatically closes
                 elif return_btn.is_pressed():
                     looping = False
 
