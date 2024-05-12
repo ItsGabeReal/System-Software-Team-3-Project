@@ -5,7 +5,6 @@ from classes.message_board import show_message
 from settings import SHOP_INVENTORY, MAP_SCREEN_RESOLUTION, SLEEP_COST
 
 def open_inn_screen():
-    pygame.display.set_caption("Inn")
     screen = pygame.display.set_mode((300, 300))
 
     # Create font

@@ -15,7 +15,6 @@ SELL_LIST_X = 250
 ITEM_SPACING = 50
 
 def open_shop_screen():
-    pygame.display.set_caption("Shop")
     screen = pygame.display.set_mode((500, 530))
 
     # Create font

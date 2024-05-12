@@ -54,7 +54,6 @@ Section of code initializes and sets up fight event when triggered by chance in 
 '''
 def fight_encounter():
     # Pygame setup
-    pygame.display.set_caption("Enemy Encounter")
     screen = pygame.display.set_mode((500, 500))
 
     # Pygame font setup

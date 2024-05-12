@@ -9,7 +9,6 @@ from classes.button import Button
 from settings import MAP_SCREEN_RESOLUTION, BOAT_REQUIREMENTS
 
 def open_boat_screen():
-    pygame.display.set_caption("Broken Boat")
     screen = pygame.display.set_mode((500, 400))
 
     # Create fonts
@@ -70,7 +69,6 @@ def can_build_boat():
 
 
 def open_victory_screen():
-    pygame.display.set_caption("You Win!")
     screen = pygame.display.set_mode((600, 600))
 
     # Create font

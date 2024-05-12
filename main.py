@@ -1,4 +1,6 @@
 import pygame
+import settings
+from start_screen import open_start_screen
 from boat import open_boat_screen
 from mining import get_mining_yield
 from shop import open_shop_screen
@@ -6,20 +8,23 @@ from inn import open_inn_screen
 from classes.world_map import world_map
 from classes.stats import player_stats, player_inventory
 from classes.message_board import Message_Board, show_message
-import settings
+from classes.button import Button
 
 # Constants
 MOVE_DELAY = 150 # Delay between player movements when holding down an arrow key (in milliseconds)
 
 # Pygame setup
 pygame.init() # setup pygame
-screen = pygame.display.set_mode(settings.MAP_SCREEN_RESOLUTION) # create a window
 pygame.display.set_caption("Waterlogged") # set window name
-map_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 24) # create a font that we can use to draw text
-text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
 pygame.key.set_repeat(MOVE_DELAY, MOVE_DELAY) # set repeat rate for keys. that way players can move by holding down the arrow keys
 
+# Show start screen
+open_start_screen()
+
 # Game setup
+screen = pygame.display.set_mode(settings.MAP_SCREEN_RESOLUTION) # create a window
+map_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 24) # create a font that we can use to draw text
+text_font = pygame.font.Font('./assets/SourceCodePro-Regular.ttf', 14)
 map = world_map()
 mb = Message_Board()
 show_message('Move with arrow keys. Interact with E.')
@@ -74,9 +79,6 @@ def on_key_pressed(event: pygame.event.Event):
         if letter == '': # nothing interactable nearby, so do nothing
             return
         
-        elif letter == 'B': # blacksmith
-            print('interacted with Blacksmith')
-        
         elif letter == 'H': # inn
             open_inn_screen()
             if player_stats.just_slept:
@@ -116,11 +118,6 @@ def on_key_pressed(event: pygame.event.Event):
             else:
                 show_message(f'Mining resource. {resource.health}% Remaining.')
 
-def on_mouse_pressed(event: pygame.event.Event):
-    # example mouse interaction code
-    if event.button == 1: # Left mouse button
-        print("left mouse button pressed")
-
 
 def draw_text(font: pygame.font.Font, message, position: tuple[int, int], color = (255, 255, 255)):
     img = font.render(message, True, color)
@@ -137,8 +134,6 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 on_key_pressed(event)
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                on_mouse_pressed(event)
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 exit = True
