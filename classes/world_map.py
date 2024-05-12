@@ -61,7 +61,7 @@ class world_map:
             while not valid_tile:
                 location = (randint(0, self.__map_size[0]-1), randint(0, self.__map_size[1]-1))
                 tile = self.get_tile(location)
-                if not self.is_obstacle(tile):
+                if tile == '*':
                     valid_tile = True
 
             # Insert tree at valid location
@@ -78,7 +78,7 @@ class world_map:
             while not valid_tile:
                 location = (randint(0, self.__map_size[0]-1), randint(0, self.__map_size[1]-1))
                 tile = self.get_tile(location)
-                if not self.is_obstacle(tile):
+                if tile == '*':
                     valid_tile = True
 
             # Insert ore deposit at valid location

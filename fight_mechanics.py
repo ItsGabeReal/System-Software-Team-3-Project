@@ -139,6 +139,7 @@ def fight_encounter():
                     enemy_stats.enemy_health -= damage_dealt
                     damage_recieved = enemy_attack()
                     player_stats.player_hunger = max(player_stats.player_hunger-3, 0)
+                    player_stats.player_health = max(player_stats.player_health-damage_recieved, 0)
                     #Ends fight event if player health or enemy health is fully depleted
                     fight_over = False
                     if enemy_stats.enemy_health <= 0:
